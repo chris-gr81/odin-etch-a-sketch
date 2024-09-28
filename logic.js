@@ -1,9 +1,17 @@
+// globals
+let mode = "default";
+
 // Registrate globals and starting-conditions
 const initialize = () => {
     const initialValues = {
         startSize: 16,
         container: document.querySelector("#container"),
-        newField: document.querySelector("#newField"),
+        panels: [
+            document.querySelector("#newField"),
+            document.querySelector("#defaultMode"),
+            document.querySelector("#colorMode"),
+            document.querySelector("#shadowMode"),
+        ],
     };
     return initialValues;
 };
@@ -54,27 +62,45 @@ const createSquare = (size, container, number) => {
 
 // Effects for hovering the squares
 const changeSquare = (square) => {
-    square.style.backgroundColor = "black";
+    if (mode === "default") {
+        square.style.backgroundColor = "black";
+    } else if (mode === "color") {
+        const colRed = Math.floor(Math.random() * 256);
+        const colGreen = Math.floor(Math.random() * 256);
+        const colBlue = Math.floor(Math.random() * 256);
+
+        square.style.backgroundColor =
+            "rgb(" + colRed + ", " + colGreen + ", " + colBlue + ")";
+    }
 };
 
 // The actions for the panel options
-const panelActions = (newField,container) => {
+const panelActions = (panels, container) => {
+    const [newField, defaultMode, colorMode, shadowMode] = panels;
     newField.addEventListener("click", () => {
         let passed = false;
         let userPrompt = 0;
         do {
-            userPrompt = parseInt(prompt("Enter Pixel-Shape for new field [1-100]"));
+            userPrompt = parseInt(
+                prompt("Enter Pixel-Shape for new field [1-100]")
+            );
             if (userPrompt > 0 && userPrompt <= 100) {
                 passed = true;
             }
         } while (!passed);
         createBoard(userPrompt, container);
-    })
-
-    return null;
-}
+    });
+    defaultMode.addEventListener("click", () => {
+        mode = "default";
+        console.log(mode);
+    });
+    colorMode.addEventListener("click", () => {
+        mode = "color";
+        console.log(mode);
+    });
+};
 // Here starts the main logic
 addCSS();
-const { startSize, container, newField } = initialize();
+const { startSize, container, panels } = initialize();
 createBoard(startSize, container);
-panelActions(newField, container);
+panelActions(panels, container);
