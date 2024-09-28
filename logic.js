@@ -33,6 +33,7 @@ const addCSS = () => {
 // Creating the board as a flex-layout with given squares
 const createBoard = (size, container) => {
     const totalSquares = size * size;
+    container.innerHTML = "";
 
     for (let i = 0; i < totalSquares; i++) {
         createSquare(size, container, i);
@@ -57,17 +58,17 @@ const changeSquare = (square) => {
 };
 
 // The actions for the panel options
-const panelActions = (newField) => {
+const panelActions = (newField,container) => {
     newField.addEventListener("click", () => {
         let passed = false;
         let userPrompt = 0;
         do {
-            userPrompt = parseInt(prompt("Enter Dimensions for new field [1-100]"));
+            userPrompt = parseInt(prompt("Enter Pixel-Shape for new field [1-100]"));
             if (userPrompt > 0 && userPrompt <= 100) {
                 passed = true;
             }
         } while (!passed);
-        console.log(userPrompt);
+        createBoard(userPrompt, container);
     })
 
     return null;
@@ -76,4 +77,4 @@ const panelActions = (newField) => {
 addCSS();
 const { startSize, container, newField } = initialize();
 createBoard(startSize, container);
-panelActions(newField);
+panelActions(newField, container);
