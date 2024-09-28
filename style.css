@@ -1,0 +1,18 @@
+.squareTest {
+    height: 20px;
+    width: 20px;
+    background-color: darkcyan;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#container {
+    border: 1px solid black;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex: wrap;
+}
