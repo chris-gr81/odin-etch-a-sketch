@@ -1,7 +1,7 @@
 // globals
 let mode = "default";
 
-// Registrate globals and starting-conditions
+// Registrate starting-conditions
 const initialize = () => {
     const initialValues = {
         startSize: 16,
@@ -105,10 +105,7 @@ const changeSquare = (square) => {
             square.style.opacity = (floatOpacity + 0.1).toFixed(1);
             square.style.backgroundColor = "black";
         }
-
-        
     }
-    
 };
 
 // The actions for the panel options
